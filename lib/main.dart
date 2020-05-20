@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'package:wpqkfwha/widget/bottom_bar.dart';
+import 'package:wpqkfwha/widget/wise_saying.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -43,7 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget _logIn () {
     return Scaffold(
         appBar: AppBar(
-            title: Text('login page')
+            title: Text('일정뽀시기')
         ),
         body: Center(
             child: Column(
@@ -51,7 +54,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                    child: Text('login'),
+                    child: Text('google ID로 로그인'),
                     onPressed: () {
                       _signIn();
                     }
@@ -62,19 +65,27 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
   Widget _main () {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('loginsss'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: () {
-                _signOut();
-              },
-            )
-          ],
+    return MaterialApp(
+      title: 'PlanBreaker',
+      theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.black,
+          accentColor: Colors.white),
+      home: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
+              WiseSaying(),    // 나중에 파이차트 부분이 구현완료 되면, if문으로 호출!
+              Container(child: Center(child: Text('달성기록'))),
+              Container(child: Center(child: Text('편지'))),
+              Container(child: Center(child: Text('설정')))
+            ],
+          ),
+          bottomNavigationBar: Bottom(),
         ),
-        body: Center(child: Text('contents'))
+      ),
     );
   }
 
@@ -103,7 +114,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     return 'success';
   }
-
+  /* 환경설정에서 구현!
   void _signOut() async{
     await googleSignIn.signOut();
     // await _auth.signOut();
@@ -111,4 +122,5 @@ class _HomeWidgetState extends State<HomeWidget> {
       app.user = null;
     });
   }
+  */
 }
