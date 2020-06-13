@@ -45,16 +45,29 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
   Widget _logIn () {
     return Scaffold(
-        appBar: AppBar(
-            title: Text('일정뽀시기')
-        ),
         body: Center(
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                //Image(image: AssetImage("images/google.png"), height: 50),
+                FlutterLogo(size: 150),
+                SizedBox(height: 50),
                 RaisedButton(
-                    child: Text('google ID로 로그인'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.lightBlue)
+                    ),
+                    color: Colors.white,
+                    textColor: Colors.lightBlue,
+                    
+                    child: Text
+                    (
+                      'Sign in with Google', 
+                      style: TextStyle(
+                      fontSize: 20)
+                    ),
+                    
                     onPressed: () {
                       _signIn();
                     }
@@ -64,6 +77,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         )
     );
   }
+  
   Widget _main () {
     return MaterialApp(
       title: 'PlanBreaker',
